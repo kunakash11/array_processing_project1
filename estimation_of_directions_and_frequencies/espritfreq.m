@@ -15,8 +15,8 @@ function f = espritfreq(X, d)
     Vs = V(:, 1:d);
 
     % step 3: selection matrices
-    J1 = [eye(N-1), zeros(N-1, 1)]; % first M-1 rows
-    J2 = [zeros(N-1, 1), eye(N-1)]; % last M-1 rows
+    J1 = [eye(N-1), zeros(N-1, 1)]; % first N-1 rows
+    J2 = [zeros(N-1, 1), eye(N-1)]; % last N-1 rows
 
     % step 4: subspaces
     Vs1 = J1 * Vs;
@@ -33,7 +33,8 @@ function f = espritfreq(X, d)
     lambda = diag(D);
 
     % step 8: eigenvalues to frequencies
-    % f = angle(lambda)/(2*pi)
+    % f = -angle(lambda)/(2*pi) (lambda = exp(-j*2pi*f)) - not according to
+    % standard literature, but how formulation is constructed
     f = -angle(lambda)/(2*pi);
 
     % step 9: frequencies in [0, 1)
