@@ -33,7 +33,7 @@ function [X, A, S] = gendata(M, N, Delta, theta, f, SNR)
 
     %% adding noise based on SNR
     % converting SNR from dB to linear scale
-    snr_linear = 10^(SNR/20);
+    snr_linear = 10^(SNR/10);
 
     % calculating noise power
     signal_power = 1; % assuming each source has unit power

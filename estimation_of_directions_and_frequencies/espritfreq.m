@@ -1,6 +1,6 @@
 function f = espritfreq(X, d)
     % modified ESPRIT algorithm for estimating frequencies
-    % X: received signal matrix (M x N)
+    % X: received data matrix (M x N)
     % d: number of sources
     % f: estimated (normalized) frequencies
 
@@ -34,7 +34,7 @@ function f = espritfreq(X, d)
 
     % step 8: eigenvalues to frequencies
     % f = -angle(lambda)/(2*pi) (lambda = exp(-j*2pi*f)) - not according to
-    % standard literature, but how formulation is constructed
+    % standard literature, accommodate to properties of V
     f = -angle(lambda)/(2*pi);
 
     % step 9: frequencies in [0, 1)

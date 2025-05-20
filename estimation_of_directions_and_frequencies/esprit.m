@@ -1,6 +1,6 @@
 function theta = esprit(X, d)
     % ESPRIT algorithm for estimating angles of arrival
-    % X: received signal matrix (M x N)
+    % X: received data matrix (M x N)
     % d: number of sources
     % theta: estimated angles (in degrees)
 
