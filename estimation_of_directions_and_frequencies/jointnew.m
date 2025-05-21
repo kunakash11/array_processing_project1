@@ -20,17 +20,13 @@ function [theta, f] = jointnew(X, d, m)
     Us = U(:, 1:d); % signal subspace (M*m x d)
 
     % step 3: space and time-shift operators
-    % space - shift by one antenna
-    J1s = [eye(M-1), zeros(M-1, 1)];
-    J2s = [zeros(M-1, 1), eye(M-1)];
+    % time - shift by one antenna, extend to smoothed structure
+    J1_time = kron(eye(m), [eye(M-1), zeros(M-1, 1)]);
+    J2_time = kron(eye(m), [zeros(M-1, 1), eye(M-1)]);
 
-    % extend to smoothed structure
-    J1_space = kron(eye(m), J1s);
-    J2_space = kron(eye(m), J2s);
-
-    % time - shift by one smoothing window
-    J1_time = [eye(M*(m-1)), zeros(M*(m-1), M)];
-    J2_time = [zeros(M*(m-1), M), eye(M*(m-1))];
+    % space - shift by one smoothing window
+    J1_space = kron([eye(m-1), zeros(m-1, 1)], eye(M));
+    J2_space = kron([zeros(m-1, 1), eye(m-1)], eye(M));
 
     % step 4: shift-invariant matrices
     Us1_space = J1_space * Us;
@@ -47,8 +43,8 @@ function [theta, f] = jointnew(X, d, m)
     % step 5: joint diagonalization
     [V, D] = joint_diag(A, 1e-10);
 
-    lambda_time  = diag(D(:, 1:d));     % A_phi → frequency
-    lambda_space = diag(D(:, d+1:end)); % A_theta → angle
+    lambda_space  = diag(D(:, 1:d));   % A_theta → angle
+    lambda_time = diag(D(:, d+1:2*d)); % A_phi → frequency
 
     f = mod(angle(lambda_space)/(2*pi), 1); % normalize in [0, 1)
     f = sort(f);
