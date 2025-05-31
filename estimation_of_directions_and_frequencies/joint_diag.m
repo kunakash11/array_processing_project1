@@ -57,6 +57,10 @@ function [ V , D ] =  joint_diag(A,jthresh)
 % Comments, bug reports, etc are welcome.
 %----------------------------------------------------------------
 
+% default threshold
+if nargin < 2
+    jthresh = 1.0e-8;
+end
 
 [m,nm] = size(A);
 

@@ -6,7 +6,7 @@ Delta = 1/2;
 theta = [-20, 30];
 f = [0.1, 0.3];
 SNR = 100; % almost no noise
-m = 4; % smoothing factor
+m = 4; % time-smoothing factor
 
 %% generating data with parameters
 [X, ~, ~] = gendata(M, N, Delta, theta, f, SNR);

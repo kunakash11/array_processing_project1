@@ -10,13 +10,13 @@ function [theta, f] = jointnew(X, d, m)
     [M, N] = size(X);
 
     % step 1: spatio-temporal data matrix (M*m x (N-m+1))
-    Xm = [];
+    Z = [];
     for i = 1:m
-        Xm = [Xm; X(:, i:N-m+i)];
+        Z = [Z; X(:, i:N-m+i)];
     end
 
     % step 2: signal subspace via SVD
-    [U, ~, ~] = svd(Xm, "econ");
+    [U, ~, ~] = svd(Z, "econ");
     Us = U(:, 1:d); % signal subspace (M*m x d)
 
     % step 3: space and time-shift operators
